@@ -1,5 +1,7 @@
 # Reactive Function
 
+[![NPM](https://nodei.co/npm/<package>.png)](https://www.npmjs.com/package/@kamyil/reactive-function)
+
 The one simple function that allows you to make your values reactive to each other!
 
 <img width="683" alt="Zrzut ekranu 2021-04-9 o 00 30 02" src="https://user-images.githubusercontent.com/26087070/114106898-194c9180-98d0-11eb-91f8-63fbcf82c81a.png">
