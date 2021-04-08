@@ -1,6 +1,6 @@
 # Reactive Function
 
-[![NPM](https://nodei.co/npm/<package>.png)](https://www.npmjs.com/package/@kamyil/reactive-function)
+![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to package on npm
 
 The one simple function that allows you to make your values reactive to each other!
 
