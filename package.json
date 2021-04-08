@@ -1,7 +1,7 @@
 {
-  "name": "reactive-function",
+  "name": "@kamyil/reactive-function",
   "version": "1.0.0",
-  "description": "",
+  "description": "The one simple function that allows you to make your values reactive to each other!",
   "main": "reactive-utilites.js",
   "authors": "Kamil Kseń",
   "scripts": {
@@ -28,10 +28,14 @@
     "webpackbar": "^5.0.0-3"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Kamil Kseń",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Kamyil/reactive-utilities/issues"
   },
-  "homepage": "https://github.com/Kamyil/reactive-utilities#readme"
+  "homepage": "https://github.com/Kamyil/reactive-utilities#readme",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {}
 }
