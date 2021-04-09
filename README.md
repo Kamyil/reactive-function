@@ -50,8 +50,34 @@ The one simple function that allows you to make your values reactive to each oth
 
 Every time when you use this function, it will register the callback (that you provide in argument)
 inside global execution context (Browser od Node.JS) in `$reactiveDataContainer` property.
-Every time you want to try to retrieve the reactive value, it will call this callback to
-make sure that you will get fresh value every time (even if value is dependent from other reactive values)
+Every time you want to try to retrieve the reactive value, it will call this `$reactiveDataContainer` to perform this callback to
+make sure that you will get fresh value every time (even if value is dependent from other reactive values). 
+
+## How to import it?
+Since it's standard ESModule, you can import it simply using `import` syntax
+```ts
+import { reactive } from "@kamyil/reactive-function";
+```
+
+or you can destructure it using `require` if you do not use any kind of module bundler for writing your Node application
+
+```js
+const { reactive } = require("@kamyil/reactive-function");
+```
+
+## How to use it?
+1. First, declare your new reactive value
+```ts
+const myReactiveValue = reactive(() => 'your initial value goes here...');
+```
+2. Then you can update it by mutating the `value` property of it
+```ts
+myReactiveValue.value = 'new value';
+```
+And then every other dependent value will be automatically updated after the mutation
+
+## Where this function could be useful?
+Mainly in the legacy systems and old JS applications, where putting reactive JS framework (like React, Vue or Angular) would be extremely though challenge to do, but there is a need to create some reactive functionality
 
 ## I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem
 
