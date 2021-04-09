@@ -6,15 +6,6 @@ The one simple function that allows you to make your values reactive to each oth
 
 ![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to NPM Package
 
-
-- [Reactive Function](#reactive-function)
-  - [Advantages](#advantages)
-  - [Purpose](#purpose)
-  - [How does it work?](#how-does-it-work-)
-  - [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 ## Advantages
 
 - **Minimalistic**
