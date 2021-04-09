@@ -4,6 +4,9 @@ The one simple function that allows you to make your values reactive to each oth
 
 <img width="683" alt="Zrzut ekranu 2021-04-9 o 00 30 02" src="https://user-images.githubusercontent.com/26087070/114106898-194c9180-98d0-11eb-91f8-63fbcf82c81a.png">
 
+![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to NPM Package
+
+
 - [Reactive Function](#reactive-function)
   - [Advantages](#advantages)
   - [Purpose](#purpose)
@@ -33,8 +36,6 @@ The one simple function that allows you to make your values reactive to each oth
 `newReactiveValue.value = 'some new value';`
 
 ... and then every other reactive value that depends on your `newReactiveValue` will change as well
-
-- Make it small size
 
 - Make it hardly typed for improving developer experience. **Reactive Function** serves it's own type with automatically interfered
   subtype of your new reactive value,
