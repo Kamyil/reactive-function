@@ -8,7 +8,7 @@ module.exports = () => {
   return {
     mode: 'production',
     target: 'node',
-    entry: './src/reactive-function.ts',
+    entry: './index.ts',
     stats: 'minimal',
     node: {
       global: true,
@@ -28,7 +28,7 @@ module.exports = () => {
       extensions: ['.ts', '.js'],
     },
     output: {
-      filename: 'reactive-function.js',
+      filename: 'index.js',
     },
     module: {
       rules: [

@@ -1,4 +1,4 @@
-type ReactiveValue<typeOfInitialValue = unknown> = {
+export type ReactiveValue<typeOfInitialValue = unknown> = {
   /**
    * Key of reactive value that sits inside `window.$reactiveDataContainer` with this key
    */
@@ -14,7 +14,7 @@ type ReactiveValue<typeOfInitialValue = unknown> = {
   callbackThatReturnsUpdatedValue: () => typeOfInitialValue;
 };
 
-type IReactiveDataContainer = {
+export type IReactiveDataContainer = {
   data: Map<number, ReactiveValue<unknown>>;
   lastUsedId: number;
 };

@@ -2,7 +2,7 @@
   "name": "@kamyil/reactive-function",
   "version": "1.0.0",
   "description": "The one simple function that allows you to make your values reactive to each other!",
-  "main": "reactive-utilites.js",
+  "main": "reactive-function.ts",
   "authors": "Kamil Kseń",
   "scripts": {
     "test:w": "jest --colors --watch",
