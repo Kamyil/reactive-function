@@ -6,15 +6,6 @@ The one simple function that allows you to make your values reactive to each oth
 
 ![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to NPM Package
 
-
-- [Reactive Function](#reactive-function)
-  - [Advantages](#advantages)
-  - [Purpose](#purpose)
-  - [How does it work?](#how-does-it-work-)
-  - [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 ## Advantages
 
 - **Minimalistic**
@@ -50,12 +41,42 @@ The one simple function that allows you to make your values reactive to each oth
 
 Every time when you use this function, it will register the callback (that you provide in argument)
 inside global execution context (Browser od Node.JS) in `$reactiveDataContainer` property.
-Every time you want to try to retrieve the reactive value, it will call this callback to
-make sure that you will get fresh value every time (even if value is dependent from other reactive values)
+Every time you want to try to retrieve the reactive value, it will call this `$reactiveDataContainer` to perform this callback to
+make sure that you will get fresh value every time (even if value is dependent from other reactive values). 
+
+## How to import it?
+Since it's standard ESModule, you can import it simply using `import` syntax
+```ts
+import { reactive } from "@kamyil/reactive-function";
+```
+
+or you can destructure it using `require` if you do not use any kind of module bundler for writing your Node application
+
+```js
+const { reactive } = require("@kamyil/reactive-function");
+```
+
+## How to use it?
+1. First, declare your new reactive value
+```ts
+const myReactiveValue = reactive(() => 'your initial value goes here...');
+```
+2. Then you can update it by mutating the `value` property of it
+```ts
+myReactiveValue.value = 'new value';
+```
+And then every other dependent value will be automatically updated after the mutation
+
+## Where this function could be useful?
+Mainly in the legacy systems and old JS applications, where putting reactive JS framework (like React, Vue or Angular) would be extremely though challenge to do, but there is a need to add some new reactive functionality, without adding heavy libraries
+
+## Why I have to pass callback into the function instead of simply values?
+In order to track changes on every reactive value dependency, we have to make sure that the value will still contain that dependency.
+So things like `const value = reactive(dependencyValue * 2)` will not work, because JS will compute it to simple non-dependent value (in this case number) that cannot be refreshed since it will loose the reference.
 
 ## I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem
 
-It means that your development environment did not catch extended `Window` & `Global` with this property. The possible fix for that would be adding it manually to your type definition file
+It means that your development environment did not catch extended `Window` & `Global` interfaces with this property. The possible fix for that would be adding it manually to your type definition file
 
 ```ts
 import { IReactiveDataContainer } from '@kamyil/reactive-functions';
@@ -71,3 +92,7 @@ declare global {
   }
 }
 ```
+
+# Inspirations
+- `@vue/reactivity` by Evan You https://www.npmjs.com/package/@vue/reactivity
+- `rxjs/observables` - https://rxjs-dev.firebaseapp.com/guide/observable
