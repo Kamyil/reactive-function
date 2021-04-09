@@ -34,8 +34,6 @@ The one simple function that allows you to make your values reactive to each oth
 
 ... and then every other reactive value that depends on your `newReactiveValue` will change as well
 
-- Make it small size
-
 - Make it hardly typed for improving developer experience. **Reactive Function** serves it's own type with automatically interfered
   subtype of your new reactive value,
 
