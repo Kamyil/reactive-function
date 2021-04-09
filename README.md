@@ -68,11 +68,11 @@ myReactiveValue.value = 'new value';
 And then every other dependent value will be automatically updated after the mutation
 
 ## Where this function could be useful?
-Mainly in the legacy systems and old JS applications, where putting reactive JS framework (like React, Vue or Angular) would be extremely though challenge to do, but there is a need to create some reactive functionality
+Mainly in the legacy systems and old JS applications, where putting reactive JS framework (like React, Vue or Angular) would be extremely though challenge to do, but there is a need to add some new reactive functionality, without adding heavy libraries
 
 ## I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem
 
-It means that your development environment did not catch extended `Window` & `Global` with this property. The possible fix for that would be adding it manually to your type definition file
+It means that your development environment did not catch extended `Window` & `Global` interfaces with this property. The possible fix for that would be adding it manually to your type definition file
 
 ```ts
 import { IReactiveDataContainer } from '@kamyil/reactive-functions';
@@ -88,3 +88,7 @@ declare global {
   }
 }
 ```
+
+# Inspirations
+- `@vue/reactivity` by Evan You https://www.npmjs.com/package/@vue/reactivity
+- `rxjs/observables` - https://rxjs-dev.firebaseapp.com/guide/observable
