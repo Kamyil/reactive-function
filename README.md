@@ -1,7 +1,5 @@
 # Reactive Function
 
-![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to package on npm
-
 The one simple function that allows you to make your values reactive to each other!
 
 <img width="683" alt="Zrzut ekranu 2021-04-9 o 00 30 02" src="https://user-images.githubusercontent.com/26087070/114106898-194c9180-98d0-11eb-91f8-63fbcf82c81a.png">
@@ -11,6 +9,8 @@ The one simple function that allows you to make your values reactive to each oth
   - [Purpose](#purpose)
   - [How does it work?](#how-does-it-work-)
   - [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## Advantages
 
