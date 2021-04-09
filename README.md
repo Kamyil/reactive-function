@@ -70,6 +70,10 @@ And then every other dependent value will be automatically updated after the mut
 ## Where this function could be useful?
 Mainly in the legacy systems and old JS applications, where putting reactive JS framework (like React, Vue or Angular) would be extremely though challenge to do, but there is a need to add some new reactive functionality, without adding heavy libraries
 
+## Why I have to pass callback into the function instead of simply values?
+In order to track changes on every reactive value dependency, we have to make sure that the value will still contain that dependency.
+So things like `const value = reactive(dependencyValue * 2)` will not work, because JS will compute it to simple non-dependent value (in this case number) that cannot be refreshed since it will loose the reference.
+
 ## I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem
 
 It means that your development environment did not catch extended `Window` & `Global` interfaces with this property. The possible fix for that would be adding it manually to your type definition file
