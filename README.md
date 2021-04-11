@@ -1,5 +1,7 @@
 # Reactive Function
 
+##### WARNING! IF YOU'RE USING 1.0.0 VERSION, UPDATE TO 1.0.1 VERSION INSTEAD TO FIX AUTO-IMPORTS AND TYPE IMPORTS. SORRY FOR TROUBLE
+
 The one simple function that allows you to make your values reactive to each other!
 
 <img width="683" alt="Zrzut ekranu 2021-04-9 o 00 30 02" src="https://user-images.githubusercontent.com/26087070/114106898-194c9180-98d0-11eb-91f8-63fbcf82c81a.png">
@@ -22,8 +24,10 @@ The one simple function that allows you to make your values reactive to each oth
 - Make it minimalistic. Don't bother developer with hard usage. Just pass your new value inside callback to reactive function argument like so:
   `let newReactiveValue = reactive(() => 'your new reactive value!');`
 
-  ... and update it like so
+  ... and get the value like so
+`newReactiveValue.value;`
 
+  ... and update it like so
 `newReactiveValue.value = 'some new value';`
 
 ... and then every other reactive value that depends on your `newReactiveValue` will change as well
@@ -61,10 +65,18 @@ const { reactive } = require("@kamyil/reactive-function");
 ```ts
 const myReactiveValue = reactive(() => 'your initial value goes here...');
 ```
+
 2. Then you can update it by mutating the `value` property of it
 ```ts
 myReactiveValue.value = 'new value';
 ```
+
+3. Or you can just grab always-fresh value the same way
+```ts
+myReactiveValue.value;
+```
+
+
 And then every other dependent value will be automatically updated after the mutation
 
 ## Where this function could be useful?
