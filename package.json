@@ -1,6 +1,6 @@
 {
   "name": "@kamyil/reactive-function",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The one simple function that allows you to make your values reactive to each other!",
   "main": "reactive-function.ts",
   "authors": "Kamil Kseń",

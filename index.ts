@@ -1,6 +1,8 @@
 export type ReactiveValue<typeOfInitialValue = unknown> = {
   /**
-   * Key of reactive value that sits inside `window.$reactiveDataContainer` with this key
+   * Key of reactive value that sits inside `window.$reactiveDataContainer`
+   * **Do not use it to retrieve or change the value!
+   * use `value` instead!**
    */
   key: number;
   /**
