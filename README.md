@@ -8,6 +8,8 @@ The one simple function that allows you to make your values reactive to each oth
 
 ![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to NPM Package
 
+Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
+
 ## Advantages
 
 - **Minimalistic**
