@@ -20,6 +20,10 @@ Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 - **Zero dependencies**
 - **Proxy-based**
 
+## Disadvantages
+- Doesn't work on objects (yet) https://github.com/Kamyil/reactive-function/issues/1
+
+
 ## Purpose
 
 - Make possibility to use reactive data completely without needing to include any JS framework or library
