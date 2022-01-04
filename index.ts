@@ -1,3 +1,5 @@
+import { PubSubInstance } from './PubSub';
+
 export type ReactiveValue<typeOfInitialValue = unknown> = {
   /**
    * Key of reactive value that sits inside `window.$reactiveDataContainer`
@@ -30,6 +32,22 @@ declare global {
       $reactiveDataContainer: IReactiveDataContainer;
     }
   }
+}
+
+/**
+ * Allows to perform provided callbacks on given ReactiveValue change
+ * @param callback - Callback to perform
+ */
+export function onChange<typeofReactiveValue>(
+  reactiveValueToListenTo: ReactiveValue<typeofReactiveValue>,
+  callback: ({ previousValue, newValue }) => void
+): void {
+  PubSubInstance.subscribe(
+    `reactiveValue:${reactiveValueToListenTo.key}:change`,
+    ({ previousValue, newValue }) => {
+      callback({ previousValue, newValue });
+    }
+  );
 }
 
 /**
@@ -77,21 +95,34 @@ export function reactive<typeOfInitialValue>(
     },
     {
       set: (target, key, value) => {
-        executionContext.$reactiveDataContainer.data.set(target['key'], {
-          key: target['key'],
+        PubSubInstance.publish(`reactiveValue:${target.key}:change`, {
+          previousValue: target.callbackThatReturnsUpdatedValue(),
+          newValue: value,
+        });
+
+        executionContext.$reactiveDataContainer.data.set(target.key, {
+          key: target.key,
           callbackThatReturnsUpdatedValue: () => value,
           value: value,
         });
 
         return true;
       },
-      get: (target) => {
-        if (!executionContext.$reactiveDataContainer.data.get(target['key'])) {
-          return target['callback']();
+      get: (
+        target,
+        propertyCalledToGet: 'key' | 'value' | 'callbackThatReturnsUpdatedValue'
+      ) => {
+        if (!executionContext.$reactiveDataContainer.data.get(target.key)) {
+          return target.callbackThatReturnsUpdatedValue();
         } else {
-          return executionContext.$reactiveDataContainer.data
-            .get(target['key'])
+          const newValue = executionContext.$reactiveDataContainer.data
+            .get(target.key)
             .callbackThatReturnsUpdatedValue();
+
+          if (propertyCalledToGet === 'key') return target.key;
+          else if (propertyCalledToGet === 'value') return newValue;
+          else if (propertyCalledToGet === 'callbackThatReturnsUpdatedValue')
+            return callbackThatReturnsValue;
         }
       },
     }
