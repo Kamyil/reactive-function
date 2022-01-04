@@ -24,6 +24,35 @@ Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 ~~Doesn't work on objects (yet) https://github.com/Kamyil/reactive-function/issues/1~~
 ***WORKS NOW!***
 
+## How to use it?
+1. First, declare your new reactive value
+```ts
+const myReactiveValue = reactive(() => 'your initial value goes here...');
+```
+
+2. Then you can update it by mutating the `value` property of it
+```ts
+myReactiveValue.value = 'new value';
+```
+
+3. Or you can just grab always-fresh value the same way
+```ts
+myReactiveValue.value;
+```
+
+4. You can also track changes by another prepared function for that purpose and perform some callbacks with previous value and new value
+```ts
+import { onChange } from '@kamyil/reactive-function/index';
+
+let myReactiveNumber = reactive(() => 1);
+
+myReactiveNumber.value = 2;
+
+onChange(myReactiveNumber, ({ previousValue, newValue }) => {
+  console.log(`Hurray! It's updated! Now newValue is ${newValue}, where previousValue was ${previousValue}`);
+}); // => Hurray! It's updated! Now newValue is 2, where previousValue was 1
+```
+
 
 ## Purpose
 
@@ -70,23 +99,6 @@ or you can destructure it using `require` if you do not use any kind of module b
 ```js
 const { reactive } = require("@kamyil/reactive-function");
 ```
-
-## How to use it?
-1. First, declare your new reactive value
-```ts
-const myReactiveValue = reactive(() => 'your initial value goes here...');
-```
-
-2. Then you can update it by mutating the `value` property of it
-```ts
-myReactiveValue.value = 'new value';
-```
-
-3. Or you can just grab always-fresh value the same way
-```ts
-myReactiveValue.value;
-```
-
 
 And then every other dependent value will be automatically updated after the mutation
 
