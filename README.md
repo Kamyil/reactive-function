@@ -21,7 +21,8 @@ Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 - **Proxy-based**
 
 ## Disadvantages
-- Doesn't work on objects (yet) https://github.com/Kamyil/reactive-function/issues/1
+~~ Doesn't work on objects (yet) https://github.com/Kamyil/reactive-function/issues/1 ~~
+*WORKS NOW!*
 
 
 ## Purpose
