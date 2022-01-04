@@ -60,6 +60,10 @@ Since it's standard ESModule, you can import it simply using `import` syntax
 ```ts
 import { reactive } from "@kamyil/reactive-function";
 ```
+if you receive the error from your bundler/compiler that it cannot get the module (f.e. Vite can do that, because it points automatically on types.d.ts file instead of index.ts file), then import it this way
+```ts
+import { reactive } from "@kamyil/reactive-function/index";
+```
 
 or you can destructure it using `require` if you do not use any kind of module bundler for writing your Node application
 
