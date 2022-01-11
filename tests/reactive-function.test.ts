@@ -1,4 +1,4 @@
-import { trackChanges, reactive } from '../index';
+import { trackChanges, reactive, destructure } from '../index';
 
 interface TestObject {
   key: number;
@@ -111,5 +111,37 @@ describe('reactive-function', () => {
 
     testNumber.value = 2;
     testArray.value = [...testArray.value, 4];
+  });
+
+  it('should allow to destructure properties and make them reactive', () => {
+    interface ITestObject {
+      foo: string;
+      bar: string;
+      baz: string;
+    }
+
+    const testObject = reactive<ITestObject>({
+      foo: 'foo',
+      bar: 'bar',
+      baz: 'baz',
+    });
+
+    const { foo, bar } = destructure(testObject);
+
+    console.log(foo);
+    /**
+     * It has to work this way
+     *
+     */
+
+    testObject.value = {
+      foo: 'FOO',
+      bar: 'BAR',
+      ...testObject.value,
+    };
+
+    expect(foo).toBe('FOO');
+    expect(bar).toBe('BAR');
+    expect(testObject.value.baz).toBe('baz');
   });
 });

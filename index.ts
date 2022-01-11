@@ -73,6 +73,28 @@ export function trackChanges<reactiveValueType>(
   };
 }
 
+type ReactiveValueKey<reactiveValueType> =
+  keyof Reactive<reactiveValueType>['value'];
+
+export function destructure<reactiveValueType>(
+  reactiveValue: Reactive<reactiveValueType>,
+  specificPropsToDestructure?: Array<ReactiveValueKey<reactiveValueType>>
+): { [key: string]: keyof Reactive<reactiveValueType>['value'] } {
+  let propsButReactive;
+
+  if (specificPropsToDestructure) {
+    propsButReactive = specificPropsToDestructure.map((prop) => {
+      return reactive(() => reactiveValue.value[prop]).value;
+    });
+  } else {
+    propsButReactive = Object.keys(reactiveValue.value).map((key) => {
+      return reactive(() => reactiveValue.value[key]).value;
+    });
+  }
+
+  return propsButReactive;
+}
+
 /**
  * @description Makes given value reactive, which means that it will react and change on internal/other depdendent reactive value changes
  * inside application and it will returns freshly updated value every single time
