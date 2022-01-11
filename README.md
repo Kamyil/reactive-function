@@ -12,7 +12,7 @@ Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 - [How does it work?](#how-does-it-work-)
 - [What about objects and arrays?](#what-about-objects-and-arrays-)
 - [How to track changes?](#how-to-track-changes-)
-  - [How to stop tracking changes?](#how-to-stop-tracking-changes-)
+  * [How to stop tracking changes?](#how-to-stop-tracking-changes-)
 - [For TypeScript users](#for-typescript-users)
 - [When to pass value and when to pass callback?](#when-to-pass-value-and-when-to-pass-callback-)
 - [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
@@ -201,7 +201,7 @@ testObject = reactive<Person>({
 });
 ```
 
-The same goes for tool functions like `onChange`;
+The same goes for tool functions like `trackChanges`;
 
 # When to pass value and when to pass callback?
 
