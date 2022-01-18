@@ -1,4 +1,4 @@
-import { trackChanges, reactive } from '../index';
+import { reactive, trackChanges, stopTracking, syncWithHTML } from '../index';
 
 interface TestObject {
   key: number;
@@ -24,9 +24,9 @@ describe('reactive-function', () => {
   });
 
   it('should recompute object properties', () => {
-    const object = reactive<TestObject>(() => ({
+    const object = reactive<TestObject>({
       key: 1,
-    }));
+    });
 
     const primitive = reactive(() => object.value.key * 2);
     expect(primitive.value).toBe(2);
@@ -38,7 +38,7 @@ describe('reactive-function', () => {
     expect(primitive.value).toBe(8);
   });
 
-  it('should properly perform callback used in onChange function on value change and test if previous and new values are correct', () => {
+  it('should properly perform callback used in trackChanges function on value change and test if previous and new values are correct', () => {
     let Car = reactive({
       color: 'green',
       width: 200,
@@ -76,12 +76,13 @@ describe('reactive-function', () => {
     expect(testArray2.value).toStrictEqual([1, 2, 3, 4]);
   });
 
-  it('should allow to stop watching current onChange instance', () => {
+  it('should allow to stop watching current trackChanges instance', () => {
     const testNumber1 = reactive(1);
+    const doubled = reactive(() => testNumber1.value * 2);
 
     const count = jest.fn();
-    const { stopTracking } = trackChanges(testNumber1, ({ newValue }) => {
-      if (newValue > 5) stopTracking();
+    trackChanges(testNumber1, ({ newValue }) => {
+      if (newValue > 5) stopTracking(testNumber1);
       else count();
     });
 
@@ -95,7 +96,7 @@ describe('reactive-function', () => {
     testNumber1.value = 9;
     testNumber1.value = 10;
 
-    expect(testNumber1.value).toBe(10);
+    expect(doubled.value).toBe(20);
     expect(count).toBeCalledTimes(4);
   });
 
@@ -111,5 +112,61 @@ describe('reactive-function', () => {
 
     testNumber.value = 2;
     testArray.value = [...testArray.value, 4];
+  });
+
+  it('should keep track on reactive value that was computed from other reactive value', () => {
+    const firstNumber = reactive(2);
+    const double = reactive(() => firstNumber.value * 2);
+
+    trackChanges(double, ({ previousValue, newValue }) => {
+      expect(previousValue).toBe(4);
+      expect(newValue).toBe(8);
+    });
+
+    firstNumber.value = 4;
+    expect(double.value).toBe(8);
+  });
+
+  it('should allow to sync reactive value with HTML and perform optional callback after that', () => {
+    const elementToSync = document.createElement('div');
+    const myNumber = reactive(1);
+    const doubledNumber = reactive(() => myNumber.value * 2);
+
+    syncWithHTML(doubledNumber, elementToSync, {
+      callback: ({ previousValue, newValue }) => {
+        expect(previousValue).toBe(2);
+        if (elementToSync.style.background !== 'red') {
+          elementToSync.style.background = 'red';
+        }
+        expect(newValue).toBe(4);
+        expect(elementToSync.textContent).toBe('4');
+        expect(elementToSync.style.background).toBe('red');
+      },
+    });
+    myNumber.value = 2;
+
+    expect(doubledNumber.value).toBe(4);
+  });
+
+  it('should also work with passing a simple selector instead of element', () => {
+    const elementToSync = document.createElement('div');
+    elementToSync.classList.add('element-to-sync');
+    const myNumber = reactive(1);
+    const doubledNumber = reactive(() => myNumber.value * 2);
+
+    syncWithHTML(doubledNumber, '.element-to-sync', {
+      callback: ({ previousValue, newValue }) => {
+        expect(previousValue).toBe(2);
+        if (elementToSync.style.background !== 'red') {
+          elementToSync.style.background = 'red';
+        }
+        expect(newValue).toBe(4);
+        expect(elementToSync.textContent).toBe('4');
+        expect(elementToSync.style.background).toBe('red');
+      },
+    });
+    myNumber.value = 2;
+
+    expect(doubledNumber.value).toBe(4);
   });
 });
