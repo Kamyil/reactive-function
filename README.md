@@ -1,5 +1,3 @@
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 # Reactive Function
 
 The one simple function that allows you to make your values reactive to each other!
