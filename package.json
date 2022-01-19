@@ -1,6 +1,6 @@
 {
   "name": "@kamyil/reactive-function",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "The one simple function that allows you to make your values reactive to each other!",
   "main": "./dist/index.js",
   "authors": "Kamil Kseń",
