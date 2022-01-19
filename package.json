@@ -1,6 +1,6 @@
 {
   "name": "@kamyil/reactive-function",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "The one simple function that allows you to make your values reactive to each other!",
   "main": "./dist/index.js",
   "authors": "Kamil Kseń",
@@ -35,7 +35,10 @@
     "reactive-function",
     "proxy-reactivity",
     "proxy",
-    "reactivness"
+    "reactivness",
+    "ref",
+    "computed",
+    "react"
   ],
   "author": "Kamil Kseń",
   "license": "MIT",
