@@ -1,4 +1,12 @@
-import { PubSubInstance } from './PubSub';
+import { stopTracking } from './src/stopTracking';
+import { syncWithHTML } from './src/syncWithHTML';
+import { trackChanges } from './src/trackChanges';
+import { PubSubInstance } from './src/PubSub';
+
+export interface ICallbackValues {
+  previousValue?: unknown;
+  newValue?: unknown;
+}
 
 /**
  * Describes single Reactive Entity.
@@ -29,48 +37,26 @@ export class Reactive<initialValueType = unknown> {
   }
 }
 
-export type IReactiveDataContainer = {
+export type ReactiveDataContainer = {
   data: Map<number, Reactive<unknown>>;
   lastUsedId: number;
 };
 
 declare global {
   interface Window {
-    $reactiveDataContainer: IReactiveDataContainer;
+    $reactiveDataContainer: ReactiveDataContainer;
+    reactive: <initialValueType>(
+      value: initialValueType | (() => initialValueType)
+    ) => Reactive<initialValueType>;
   }
   namespace NodeJS {
     interface Global {
-      $reactiveDataContainer: IReactiveDataContainer;
+      $reactiveDataContainer: ReactiveDataContainer;
+      reactive: <initialValueType>(
+        value: initialValueType | (() => initialValueType)
+      ) => Reactive<initialValueType>;
     }
   }
-}
-
-/**
- * Allows to perform provided callbacks on given Reactive value change
- * @param callback - Callback to perform
- *
- * @returns Object with `stopWatching` method that can be used to stop this watcher
- * from watching value anymore with possibility to run callback on watchFinish
- */
-export function trackChanges<reactiveValueType>(
-  reactiveValueToTrack: Reactive<reactiveValueType>,
-  callback: ({ previousValue, newValue }) => void
-): { stopTracking: (callbackOnWatchStop?: () => unknown) => void } {
-  PubSubInstance.subscribe(
-    `reactiveValue:${reactiveValueToTrack.key}:change`,
-    ({ previousValue, newValue }) => {
-      callback({ previousValue, newValue });
-    }
-  );
-
-  return {
-    stopTracking: (callbackOnTrackStop?: () => unknown) => {
-      PubSubInstance.unsubscribe(
-        `reactiveValue:${reactiveValueToTrack.key}:change`,
-        callbackOnTrackStop
-      );
-    },
-  };
 }
 
 /**
@@ -127,7 +113,7 @@ export function trackChanges<reactiveValueType>(
  * ```
  * @returns Initial and updated on every change value
  */
-export function reactive<initialValueType>(
+function reactive<initialValueType>(
   value: initialValueType | (() => initialValueType)
 ): Reactive<initialValueType> {
   /**
@@ -200,3 +186,6 @@ export function reactive<initialValueType>(
 
   return newReactiveEntity;
 }
+
+window.reactive = reactive;
+export { reactive, trackChanges, syncWithHTML, stopTracking };

@@ -1,3 +1,18 @@
+- [Reactive Function](#reactive-function)
+- [Advantages](#advantages)
+- [How to use it?](#how-to-use-it-)
+- [How does it work?](#how-does-it-work-)
+- [What about objects and arrays?](#what-about-objects-and-arrays-)
+- [How to track changes?](#how-to-track-changes-)
+  - [How to stop tracking changes?](#how-to-stop-tracking-changes-)
+  - [How to sync reactive variables with HTML?](#how-to-sync-reactive-variables-with-html-)
+- [For TypeScript users](#for-typescript-users)
+- [When to pass value and when to pass callback?](#when-to-pass-value-and-when-to-pass-callback-)
+- [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
+- [Inspirations](#inspirations)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 # Reactive Function
 
 The one simple function that allows you to make your values reactive to each other!
@@ -6,22 +21,10 @@ The one simple function that allows you to make your values reactive to each oth
 
 Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 
-- [Reactive Function](#reactive-function)
-- [Advantages](#advantages)
-- [How to use it?](#how-to-use-it-)
-- [How does it work?](#how-does-it-work-)
-- [What about objects and arrays?](#what-about-objects-and-arrays-)
-- [How to track changes?](#how-to-track-changes-)
-  * [How to stop tracking changes?](#how-to-stop-tracking-changes-)
-- [For TypeScript users](#for-typescript-users)
-- [When to pass value and when to pass callback?](#when-to-pass-value-and-when-to-pass-callback-)
-- [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
-- [Inspirations](#inspirations)
-
 # Advantages
 
 - **Minimalistic**
-- **Light-weight**
+- **Very Light-weight**
 - **100% Hardly Typed**
 - **Framework agnostic**
 - **Zero dependencies**
@@ -44,6 +47,8 @@ or you can destructure it using `require` if you do not use any kind of module b
 
 ```js
 const { reactive } = require('@kamyil/reactive-function');
+// or
+const { reactive } = require('@kamyil/reactive-function/index');
 ```
 
 Then pass your value into reactive function and assign it's result to variable
@@ -72,13 +77,13 @@ console.log(myReactiveValue.value); // => 'some another string'
 `What's so reactive about that huh? It's obvious that if you mutate properties, you will update and retrieve only fresh values`
 
 You're absolutely right! But now the magic is going to happen. Let's say:
-now you want to make it reactive/dependent to other reactive value
+now you want to make it reactive to other reactive value
 
 ```ts
 import { reactive } from '@kamyil/reactive-function';
 
 const myNumber = reactive(2);
-// and now let make it dependent from number above
+// and now let's make it dependent from number above
 const anotherNumber = reactive(() => myNumber.value * 2);
 
 // and now let's check if it will react on first reactive value change
@@ -98,7 +103,7 @@ const anotherNumber = reactive(myNumber.value * 2);
 ```
 
 ... will early and automatically compute `myNumber.value * 2` into simple `4`
-without saving any reference to `myNumber` variable. Thanks to passing function, we can save all references to all used variables in that function, then use values from those variables and compute always fresh and updated value as a result.
+without saving any reference to `myNumber` variable. Thanks to passing function, we can save all references to all used variables in that function and then use those variables to compute always fresh and updated value as a result.
 
 # How does it work?
 
@@ -106,15 +111,15 @@ All of your reactive values live inside `$reactiveDataContainer` variable
 that sits inside `window` or `global` object (depending if you're running
 this function in a browser or Node.js) and those reactive values retrieve, compute and
 save references in there.
-When `someReactive.value` is called, then the getter function runs
+When `.value` is called, then the getter function runs
 
 - checks all dependencies of itself
 - gets values from them
 - and computes new value
 
-However when f.e. the `someReactive.value = 'some new value'` is being called, then it runs the setter function that will update the value
-and compute function and also trigger/call other dependent values to
-react on that and update theirselves.
+However when f.e. the `someReactive.value = 'some new value'` is being called, then it runs the setter function that will update the value,
+update computing function and also trigger/call other dependent values to
+react and update theirselves.
 All thanks to JavaScript Proxy API
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
 that allows to override default JavaScript behaviour to achieve such a thing 👏
@@ -148,6 +153,8 @@ For this case there is a special tool function called `trackChanges`.
 You can use it to perform your actions on every reactive value change
 
 ```ts
+import { reactive, trackChanges } from '@kamyil/reactive-function';
+
 const testNumber1 = reactive(1);
 
 trackChanges(testNumber1, ({ previousValue, newValue }) => {
@@ -160,24 +167,51 @@ trackChanges(testNumber1, ({ previousValue, newValue }) => {
 testNumber.value = 2;
 ```
 
+- first argument: reactive value to track
+- second argument: callback to perform on every change
+
 ## How to stop tracking changes?
 
-However if you want to stop tracking changes, you can destructure
-subhelper tool from `trackChanges` function called `stopTracking`,
-where when called => it will stop tracking changes, not perform any passed
+However if you want to stop tracking changes, you can import another tool function called `stopTracking`. When called, it will stop tracking changes, not perform any passed
 callback into `trackChanges` function anymore, and if any callback for `stopTracking` function was passed - it will call it once.
 
 ```ts
+import {
+  reactive,
+  trackChanges,
+  stopTracking,
+} from '@kamyil/reactive-function';
+
 const birthday = reactive(1);
 
-const { stopTracking } = trackChanges(testNumber1, ({ newValue }) => {
+trackChanges(testNumber1, ({ newValue }) => {
   if (newValue === 18) {
-    stopTracking(() => alert('Congratulations! Youre an adult now!'));
+    stopTracking(() => alert(`Congratulations! You're an adult now!`));
   }
 });
 
 setTimeout(() => birthday.value++, 1000);
 ```
+
+## How to sync reactive variables with HTML?
+
+There is a dedicated tool function for that case called `syncWithHTML`
+
+```ts
+import { reactive, syncWithHTML } from '@kamyil/reactive-function';
+
+const myNumber = reactive(1);
+const doubledNumber = reactive(() => myNumber.value * 2);
+
+// And it will automatically reflect changes into your DOM Element
+syncWithHTML(doubledNumber, '.element-to-sync');
+```
+
+However, if you want more flexibility with auto-updating HTML, then folow this recommendation.
+
+_As mentioned before, you can grab always fresh value by getting `value`
+property of your reactive variable like so: `yourVariable.value`.
+You can combine it with tool function called `trackChanges` to update the value your own way. Since `trackChanges` accepts a callback as a second argument - there you have flexibility to perform any side-effects you want_
 
 # For TypeScript users
 
@@ -201,7 +235,7 @@ testObject = reactive<Person>({
 });
 ```
 
-The same goes for tool functions like `trackChanges`;
+The same goes for tool functions like `trackChanges`, `stopTracking` and `syncHTML`;
 
 # When to pass value and when to pass callback?
 
