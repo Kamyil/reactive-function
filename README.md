@@ -214,7 +214,7 @@ However, if you want more flexibility with auto-updating HTML, then folow this r
 
 _As mentioned before, you can grab always fresh value by getting `value`
 property of your reactive variable like so: `yourVariable.value`.
-You can combine it with tool function called `trackChanges` to update the value your own way. Since `trackChanges` accepts a callback as a second argument - there you have flexibility to perform any side-effects you want_
+You can combine it with tool function called `trackChanges` to update the DOM Element your own way. Since `trackChanges` accepts a callback as a second argument - there you have flexibility to perform any side-effects you want_
 
 # For TypeScript users
 
