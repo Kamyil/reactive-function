@@ -27,7 +27,16 @@
     "webpack-cli": "^4.6.0",
     "webpackbar": "^5.0.0-3"
   },
-  "keywords": [],
+  "keywords": [
+    "reactivity",
+    "reactive",
+    "reactive function",
+    "variable dependency tracking",
+    "reactive-function",
+    "proxy-reactivity",
+    "proxy",
+    "reactivness"
+  ],
   "author": "Kamil Kseń",
   "license": "MIT",
   "bugs": {
