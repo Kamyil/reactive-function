@@ -193,7 +193,7 @@ trackChanges(testNumber1, ({ newValue }) => {
   }
 });
 
-setTimeout(() => birthday.value++, 1000);
+setInterval(() => birthday.value++, 1000);
 ```
 
 ## How to sync reactive variables with HTML?
