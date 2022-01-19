@@ -1,3 +1,18 @@
+- [Reactive Function](#reactive-function)
+- [Advantages](#advantages)
+- [How to use it?](#how-to-use-it-)
+- [How does it work?](#how-does-it-work-)
+- [What about objects and arrays?](#what-about-objects-and-arrays-)
+- [How to track changes?](#how-to-track-changes-)
+  - [How to stop tracking changes?](#how-to-stop-tracking-changes-)
+  - [How to sync reactive variables with HTML?](#how-to-sync-reactive-variables-with-html-)
+- [For TypeScript users](#for-typescript-users)
+- [When to pass value and when to pass callback?](#when-to-pass-value-and-when-to-pass-callback-)
+- [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
+- [Inspirations](#inspirations)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 # Reactive Function
 
 The one simple function that allows you to make your values reactive to each other!
@@ -6,18 +21,6 @@ The one simple function that allows you to make your values reactive to each oth
 
 Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 
-- [Reactive Function](#reactive-function)
-- [Advantages](#advantages)
-- [How to use it?](#how-to-use-it-)
-- [How does it work?](#how-does-it-work-)
-- [What about objects and arrays?](#what-about-objects-and-arrays-)
-- [How to track changes?](#how-to-track-changes-)
-  - [How to stop tracking changes?](#how-to-stop-tracking-changes-)
-- [For TypeScript users](#for-typescript-users)
-- [When to pass value and when to pass callback?](#when-to-pass-value-and-when-to-pass-callback-)
-- [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
-- [Inspirations](#inspirations)
-
 # Advantages
 
 - **Minimalistic**
@@ -25,7 +28,6 @@ Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 - **100% Hardly Typed**
 - **Framework agnostic**
 - **Zero dependencies**
-- **Treeshakeable**
 
 # How to use it?
 
@@ -45,6 +47,8 @@ or you can destructure it using `require` if you do not use any kind of module b
 
 ```js
 const { reactive } = require('@kamyil/reactive-function');
+// or
+const { reactive } = require('@kamyil/reactive-function/index');
 ```
 
 Then pass your value into reactive function and assign it's result to variable

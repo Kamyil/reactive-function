@@ -45,10 +45,16 @@ export type ReactiveDataContainer = {
 declare global {
   interface Window {
     $reactiveDataContainer: ReactiveDataContainer;
+    reactive: <initialValueType>(
+      value: initialValueType | (() => initialValueType)
+    ) => Reactive<initialValueType>;
   }
   namespace NodeJS {
     interface Global {
       $reactiveDataContainer: ReactiveDataContainer;
+      reactive: <initialValueType>(
+        value: initialValueType | (() => initialValueType)
+      ) => Reactive<initialValueType>;
     }
   }
 }
@@ -107,7 +113,7 @@ declare global {
  * ```
  * @returns Initial and updated on every change value
  */
-export function reactive<initialValueType>(
+function reactive<initialValueType>(
   value: initialValueType | (() => initialValueType)
 ): Reactive<initialValueType> {
   /**
@@ -181,4 +187,5 @@ export function reactive<initialValueType>(
   return newReactiveEntity;
 }
 
-export { trackChanges, syncWithHTML, stopTracking };
+window.reactive = reactive;
+export { reactive, trackChanges, syncWithHTML, stopTracking };

@@ -34,11 +34,11 @@ module.exports = () => {
       rules: [
         {
           test: /\.ts?$/,
-          loader: 'esbuild-loader',
-          options: {
-            loader: 'ts',
-            target: 'esnext',
-          },
+          loader: 'ts-loader',
+          // options: {
+          // loader: 'ts',
+          // target: 'es2015',
+          // },
         },
       ],
     },
