@@ -1,16 +1,3 @@
-- [Reactive Function](#reactive-function)
-- [Advantages](#advantages)
-- [How to use it?](#how-to-use-it-)
-- [How does it work?](#how-does-it-work-)
-- [What about objects and arrays?](#what-about-objects-and-arrays-)
-- [How to track changes?](#how-to-track-changes-)
-  - [How to stop tracking changes?](#how-to-stop-tracking-changes-)
-  - [How to sync reactive variables with HTML?](#how-to-sync-reactive-variables-with-html-)
-- [For TypeScript users](#for-typescript-users)
-- [When to pass value and when to pass callback?](#when-to-pass-value-and-when-to-pass-callback-)
-- [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
-- [Inspirations](#inspirations)
-
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 # Reactive Function
@@ -28,6 +15,24 @@ Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
 - **100% Hardly Typed**
 - **Framework agnostic**
 - **Zero dependencies**
+
+_(**DISCLAIMER**: This package is mainly my side project created and maintained purely for fun. It is battle tested and can be used on production freely, but...
+please. Keep in mind that this project can be, but should not be used as an default reactive system if you're planning to create serious business-valuable project for either yourself or company you work for, since there are various of JavaScript frameworks already that are way more advanced. Also if you're looking for simpler but framework-agnostic reactivity system, I would rather recommend `@vue/reactivity` (https://www.google.com/search?client=safari&rls=en&q=%40vue%2Freactivity&ie=UTF-8&oe=UTF-8). **Consider this library being a last-ditch alternative**)_
+
+OFC: feel free to suggest any changes in pull requests or raise an issue in Issues tab 😅
+
+- [Reactive Function](#reactive-function)
+- [Advantages](#advantages)
+- [How to use it?](#how-to-use-it-)
+- [How does it work?](#how-does-it-work-)
+- [What about objects and arrays?](#what-about-objects-and-arrays-)
+- [How to track changes?](#how-to-track-changes-)
+  - [How to stop tracking changes?](#how-to-stop-tracking-changes-)
+  - [How to sync reactive variables with HTML?](#how-to-sync-reactive-variables-with-html-)
+- [For TypeScript users](#for-typescript-users)
+- [When to pass value and when to pass callback?](#when-to-pass-value-and-when-to-pass-callback-)
+- [I have `property $reactiveDataContainer does not exist on type (Window & typeof globalThis)` problem](#i-have--property--reactivedatacontainer-does-not-exist-on-type--window---typeof-globalthis---problem)
+- [Inspirations](#inspirations)
 
 # How to use it?
 
