@@ -189,7 +189,7 @@ const birthday = reactive(1);
 
 trackChanges(testNumber1, ({ newValue }) => {
   if (newValue === 18) {
-    stopTracking(() => alert(`Congratulations! You're an adult now!`));
+    stopTracking(testNumber1, () => alert(`Congratulations! You're an adult now!`));
   }
 });
 
