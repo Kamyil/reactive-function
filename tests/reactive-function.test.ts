@@ -1,4 +1,9 @@
-import { reactive, trackChanges, stopTracking, syncWithHTML } from '../index';
+import {
+  reactive,
+  trackChanges,
+  stopTracking,
+  syncWithHTML,
+} from '../src/index';
 
 interface TestObject {
   key: number;
@@ -54,8 +59,13 @@ describe('reactive-function', () => {
       ...Car.value,
       height: 50,
     };
+
     trackChanges(Car, ({ previousValue, newValue }) => {
+      console.log(previousValue);
+      console.log(newValue);
+      // @ts-ignore
       expect(previousValue).toStrictEqual(300);
+      // @ts-ignore
       expect(newValue).toStrictEqual(50);
     });
   });

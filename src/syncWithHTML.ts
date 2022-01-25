@@ -1,5 +1,5 @@
-import { ICallbackValues, Reactive } from '../index';
 import { trackChanges } from './trackChanges';
+import { ICallbackValues, Reactive } from './types';
 
 /**
  * Allows to keep reactive value in sync with HTML element
@@ -12,7 +12,10 @@ export function syncWithHTML<reactiveValueType>(
   elementOrSelector: HTMLElement | string,
   options?: {
     useDangerousInnerHTML?: boolean;
-    callback?: ({ previousValue, newValue }: ICallbackValues) => unknown;
+    callback?: ({
+      previousValue,
+      newValue,
+    }: ICallbackValues<reactiveValueType>) => unknown;
   }
 ) {
   let element: HTMLElement;

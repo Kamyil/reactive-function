@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "commonjs",
-    "target": "es6",
+    "module": "es6",
+    "target": "es5",
+    "sourceRoot": "src",
     "sourceMap": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Classic",
     "lib": ["dom", "ES2020"],
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": false
   },
-  "typeRoots": ["node_modules/@types", "@Types/index"]
+  "typeRoots": ["node_modules/@types"]
 }

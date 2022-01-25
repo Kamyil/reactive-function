@@ -1,14 +1,15 @@
 {
   "name": "@kamyil/reactive-function",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "The one simple function that allows you to make your values reactive to each other!",
-  "main": "./dist/index.js",
+  "source": "src/index.ts",
+  "main": "src/index.js",
+  "module": "dist/module.js",
   "authors": "Kamil Kseń",
   "scripts": {
     "test:w": "jest --colors --watch",
     "test": "jest --colors --force-exit",
-    "dev": "webpack --config webpack.config.js --watch",
-    "build": "npm install && webpack --config webpack.config.js --color"
+    "dev": "tsc ./src/index.ts"
   },
   "repository": {
     "type": "git",

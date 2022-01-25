@@ -1,4 +1,4 @@
-import { reactive } from '../index';
+import { reactive } from '../src/index';
 
 describe('excel-test: probably best example to show effectivness of this mini-library', () => {
   const INITIAL_SPREADSHEET_STATE = {
