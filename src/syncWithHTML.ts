@@ -10,17 +10,18 @@ import { ICallbackValues, Reactive } from './types';
 export function syncWithHTML<reactiveValueType>(
   reactiveValue: Reactive<reactiveValueType>,
   elementOrSelector: HTMLElement | string,
-  options?: {
+  options: {
     useDangerousInnerHTML?: boolean;
     callback?: ({
       previousValue,
       newValue,
     }: ICallbackValues<reactiveValueType>) => unknown;
+  } = {
+    useDangerousInnerHTML: false,
   }
 ) {
   let element: HTMLElement;
-  if (typeof options.useDangerousInnerHTML === 'undefined')
-    options.useDangerousInnerHTML = false;
+
   if (typeof elementOrSelector === 'string') {
     element = document.querySelector(elementOrSelector);
   } else element = elementOrSelector;
