@@ -15,8 +15,6 @@ export function trackChanges<reactiveValueType>(
   PubSubInstance.subscribe(
     `reactiveValue:${reactiveValueToTrack.key}:change`,
     ({ previousValue, newValue }: ICallbackValues<reactiveValueType>) => {
-      console.log(previousValue);
-      console.log(newValue);
       callback({ previousValue, newValue });
     }
   );
