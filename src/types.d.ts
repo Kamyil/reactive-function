@@ -75,7 +75,7 @@ declare function stopTracking<reactiveValueType>(
 declare function syncWithHTML<reactiveValueType>(
   reactiveValue: Reactive<reactiveValueType>,
   elementOrSelector: HTMLElement | string,
-  options: {
+  options?: {
     useDangerousInnerHTML?: boolean;
     callback?: ({
       previousValue,
