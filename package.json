@@ -1,6 +1,6 @@
 {
   "name": "@kamyil/reactive-function",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "The one simple function that allows you to make your values reactive to each other!",
   "source": "src/index.js",
   "main": "src/index.js",
@@ -51,5 +51,5 @@
     "test": "tests"
   },
   "dependencies": {},
-  "types": "src/index.ts"
+  "types": "types.d.ts"
 }
