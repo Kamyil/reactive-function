@@ -4,7 +4,7 @@ The one simple function that allows you to make your values reactive to each oth
 
 ![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to NPM Package
 
-Demo: https://codesandbox.io/s/reactive-function-demo-l8ms7?file=/src/index.ts
+_DEMO:_ https://stackblitz.com/edit/typescript-maqe1v?file=index.ts
 
 # Advantages
 
@@ -189,11 +189,9 @@ const birthday = reactive(1);
 
 trackChanges(testNumber1, ({ newValue }) => {
   if (newValue === 18) {
-    // you don't have to pass anything
-    // stopTracking(testNumber1);
-
-    // but if you want to call something on trackstop - you can!
-    stopTracking(() => alert(`Congratulations! You're an adult now!`));
+    stopTracking(testNumber1, () =>
+      alert(`Congratulations! You're an adult now!`)
+    );
   }
 });
 
@@ -212,10 +210,6 @@ const doubledNumber = reactive(() => myNumber.value * 2);
 
 // And it will automatically reflect changes into your DOM Element
 syncWithHTML(doubledNumber, '.element-to-sync');
-
-const anotherElement = document.getElementById('#another-element-to-sync');
-// or you can also pass already grabbed element
-syncWithHTML(doubledNumber, anotherElement);
 ```
 
 However, if you want more flexibility with auto-updating HTML, then folow this recommendation.
