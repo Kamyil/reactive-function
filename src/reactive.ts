@@ -1,5 +1,5 @@
-import { PubSubInstance } from './PubSub';
 import { Reactive } from './types';
+import { PubSubInstance } from './PubSub';
 
 /**
  * @description Makes given value reactive, which means that it will react and change on internal/other depdendent reactive value changes

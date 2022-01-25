@@ -9,8 +9,6 @@ var PubSub_1 = require("./PubSub");
 function trackChanges(reactiveValueToTrack, callback) {
     PubSub_1.PubSubInstance.subscribe("reactiveValue:".concat(reactiveValueToTrack.key, ":change"), function (_a) {
         var previousValue = _a.previousValue, newValue = _a.newValue;
-        console.log(previousValue);
-        console.log(newValue);
         callback({ previousValue: previousValue, newValue: newValue });
     });
 }

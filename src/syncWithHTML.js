@@ -9,9 +9,10 @@ var trackChanges_1 = require("./trackChanges");
  * @param options
  */
 function syncWithHTML(reactiveValue, elementOrSelector, options) {
+    if (options === void 0) { options = {
+        useDangerousInnerHTML: false
+    }; }
     var element;
-    if (typeof options.useDangerousInnerHTML === 'undefined')
-        options.useDangerousInnerHTML = false;
     if (typeof elementOrSelector === 'string') {
         element = document.querySelector(elementOrSelector);
     }
