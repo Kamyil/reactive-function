@@ -1,5 +1,5 @@
-import { ICallbackValues, Reactive } from '../index';
 import { PubSubInstance } from './PubSub';
+import { ICallbackValues, Reactive } from './types';
 
 /**
  * Allows to perform provided callbacks on given Reactive value change
@@ -7,11 +7,14 @@ import { PubSubInstance } from './PubSub';
  */
 export function trackChanges<reactiveValueType>(
   reactiveValueToTrack: Reactive<reactiveValueType>,
-  callback: ({ previousValue, newValue }: ICallbackValues) => void
+  callback: ({
+    previousValue,
+    newValue,
+  }: ICallbackValues<reactiveValueType>) => void
 ): void {
   PubSubInstance.subscribe(
     `reactiveValue:${reactiveValueToTrack.key}:change`,
-    ({ previousValue, newValue }: ICallbackValues) => {
+    ({ previousValue, newValue }: ICallbackValues<reactiveValueType>) => {
       callback({ previousValue, newValue });
     }
   );

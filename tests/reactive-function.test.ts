@@ -1,4 +1,9 @@
-import { reactive, trackChanges, stopTracking, syncWithHTML } from '../index';
+import {
+  reactive,
+  trackChanges,
+  stopTracking,
+  syncWithHTML,
+} from '../src/index';
 
 interface TestObject {
   key: number;
@@ -39,7 +44,19 @@ describe('reactive-function', () => {
   });
 
   it('should properly perform callback used in trackChanges function on value change and test if previous and new values are correct', () => {
-    let Car = reactive({
+    type Car = {
+      color: string;
+      width: number;
+      height: number;
+      length: number;
+      positionX: number;
+      positionY: number;
+      propultion: string;
+      weight: number;
+      somethingElse?: number;
+    };
+
+    let car = reactive<Car>({
       color: 'green',
       width: 200,
       height: 300,
@@ -50,13 +67,34 @@ describe('reactive-function', () => {
       weight: 500,
     });
 
-    Car.value = {
-      ...Car.value,
-      height: 50,
+    car.value = {
+      ...car.value,
+      somethingElse: 50,
     };
-    trackChanges(Car, ({ previousValue, newValue }) => {
-      expect(previousValue).toStrictEqual(300);
-      expect(newValue).toStrictEqual(50);
+
+    trackChanges(car, ({ previousValue, newValue }) => {
+      expect(previousValue).toStrictEqual({
+        color: 'green',
+        width: 200,
+        height: 300,
+        length: 300,
+        positionX: 0,
+        positionY: 0,
+        propultion: 'front',
+        weight: 500,
+      });
+
+      expect(newValue).toStrictEqual({
+        color: 'green',
+        width: 200,
+        height: 50,
+        length: 300,
+        positionX: 0,
+        positionY: 0,
+        propultion: 'front',
+        weight: 500,
+        somethingElse: 50,
+      });
     });
   });
 

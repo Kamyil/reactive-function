@@ -1,5 +1,5 @@
-import { Reactive } from '../index';
 import { PubSubInstance } from './PubSub';
+import { Reactive } from './types';
 
 type CallbackArguments = {
   currentValue: unknown;

@@ -1,63 +1,5 @@
-import { stopTracking } from './src/stopTracking';
-import { syncWithHTML } from './src/syncWithHTML';
-import { trackChanges } from './src/trackChanges';
-import { PubSubInstance } from './src/PubSub';
-
-export interface ICallbackValues {
-  previousValue?: unknown;
-  newValue?: unknown;
-}
-
-/**
- * Describes single Reactive Entity.
- * **Do not use it, since it will not be reactive!!!**
- * **This class only serves type and shape informations about your reactive values**
- */
-export class Reactive<initialValueType = unknown> {
-  /**
-   * Key of reactive value that sits inside `window.$reactiveDataContainer`
-   * **Do not use it to retrieve or change the value!
-   * use `value` instead!**
-   */
-  key: number;
-  /**
-   * The value that reacts on every changes
-   */
-  value: initialValueType;
-  /**
-   * Callback that returns freshly updated value. Mainly needed to make reactive value work.
-   * **IF YOU WANT TO GET VALUE, JUST USE `value` INSTEAD OF THIS**
-   */
-  callbackThatReturnsUpdatedValue: () => initialValueType;
-
-  constructor({ key, value, callbackThatReturnsUpdatedValue }) {
-    this.key = key;
-    this.value = value;
-    this.callbackThatReturnsUpdatedValue = callbackThatReturnsUpdatedValue;
-  }
-}
-
-export type ReactiveDataContainer = {
-  data: Map<number, Reactive<unknown>>;
-  lastUsedId: number;
-};
-
-declare global {
-  interface Window {
-    $reactiveDataContainer: ReactiveDataContainer;
-    reactive: <initialValueType>(
-      value: initialValueType | (() => initialValueType)
-    ) => Reactive<initialValueType>;
-  }
-  namespace NodeJS {
-    interface Global {
-      $reactiveDataContainer: ReactiveDataContainer;
-      reactive: <initialValueType>(
-        value: initialValueType | (() => initialValueType)
-      ) => Reactive<initialValueType>;
-    }
-  }
-}
+import { PubSubInstance } from './PubSub';
+import { Reactive } from './types';
 
 /**
  * @description Makes given value reactive, which means that it will react and change on internal/other depdendent reactive value changes
@@ -113,13 +55,17 @@ declare global {
  * ```
  * @returns Initial and updated on every change value
  */
-function reactive<initialValueType>(
+export function reactive<initialValueType>(
   value: initialValueType | (() => initialValueType)
 ): Reactive<initialValueType> {
   /**
    * Determines if function is being executed inside a Browser or NodeJS
    */
-  const executionContext = window ? window : global;
+  let executionContext;
+
+  if (typeof window === 'undefined') {
+    executionContext = global;
+  } else executionContext = window;
 
   if (!executionContext.$reactiveDataContainer) {
     executionContext.$reactiveDataContainer = {
@@ -131,15 +77,19 @@ function reactive<initialValueType>(
   const lastUsedId = executionContext.$reactiveDataContainer.lastUsedId;
 
   const newReactiveEntity: Reactive<initialValueType> = new Proxy(
-    new Reactive({
+    {
       key: lastUsedId,
       callbackThatReturnsUpdatedValue:
-        typeof value === 'function' ? value : () => value,
-      // @ts-ignore
-      value: typeof value === 'function' ? value() : value,
-    }),
+        typeof value === 'function'
+          ? (value as () => initialValueType)
+          : () => value,
+      value:
+        typeof value === 'function'
+          ? (value as () => initialValueType)()
+          : value,
+    },
     {
-      set: (target, key, value) => {
+      set: (target, _key, value) => {
         PubSubInstance.publish(`reactiveValue:${target.key}:change`, {
           previousValue: target.callbackThatReturnsUpdatedValue(),
           newValue: value,
@@ -175,17 +125,15 @@ function reactive<initialValueType>(
 
   executionContext.$reactiveDataContainer.data.set(lastUsedId, {
     key: lastUsedId,
-    // @ts-ignore
     callbackThatReturnsUpdatedValue:
-      typeof value === 'function' ? value : () => value,
-    // @ts-ignore
-    value: typeof value === 'function' ? value() : value,
+      typeof value === 'function'
+        ? (value as () => initialValueType)
+        : () => value,
+    value:
+      typeof value === 'function' ? (value as () => initialValueType)() : value,
   });
 
   executionContext.$reactiveDataContainer.lastUsedId++;
 
   return newReactiveEntity;
 }
-
-window.reactive = reactive;
-export { reactive, trackChanges, syncWithHTML, stopTracking };

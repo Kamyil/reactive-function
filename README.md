@@ -189,7 +189,11 @@ const birthday = reactive(1);
 
 trackChanges(testNumber1, ({ newValue }) => {
   if (newValue === 18) {
-    stopTracking(testNumber1, () => alert(`Congratulations! You're an adult now!`));
+    // you don't have to pass anything
+    // stopTracking(testNumber1);
+
+    // but if you want to call something on trackstop - you can!
+    stopTracking(() => alert(`Congratulations! You're an adult now!`));
   }
 });
 
@@ -208,6 +212,10 @@ const doubledNumber = reactive(() => myNumber.value * 2);
 
 // And it will automatically reflect changes into your DOM Element
 syncWithHTML(doubledNumber, '.element-to-sync');
+
+const anotherElement = document.getElementById('#another-element-to-sync');
+// or you can also pass already grabbed element
+syncWithHTML(doubledNumber, anotherElement);
 ```
 
 However, if you want more flexibility with auto-updating HTML, then folow this recommendation.
