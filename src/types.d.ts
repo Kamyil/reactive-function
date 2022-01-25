@@ -56,17 +56,6 @@ declare function reactive<initialValueType>(
   value: initialValueType | (() => initialValueType)
 ): Reactive<initialValueType>;
 
-declare global {
-  interface Window {
-    $reactiveDataContainer: ReactiveDataContainer;
-  }
-  namespace NodeJS {
-    interface Global {
-      $reactiveDataContainer: ReactiveDataContainer;
-    }
-  }
-}
-
 /**
  * Stops tracking given reactive value and optionally performs an given callback if any provided
  * @param reactiveValue

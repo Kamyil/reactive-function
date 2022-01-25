@@ -1,5 +1,5 @@
-import { trackChanges } from './trackChanges';
 import { ICallbackValues, Reactive } from './types';
+import { trackChanges } from './trackChanges';
 
 /**
  * Allows to keep reactive value in sync with HTML element

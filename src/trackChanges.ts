@@ -1,5 +1,5 @@
-import { PubSubInstance } from './PubSub';
 import { ICallbackValues, Reactive } from './types';
+import { PubSubInstance } from './PubSub';
 
 /**
  * Allows to perform provided callbacks on given Reactive value change
