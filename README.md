@@ -4,7 +4,7 @@ The one simple function that allows you to make your values reactive to each oth
 
 ![NPM](https://static.npmjs.com/da3ab40fb0861d15c83854c29f5f2962.png) https://www.npmjs.com/package/@kamyil/reactive-function Link to NPM Package
 
-_DEMO:_ https://stackblitz.com/edit/typescript-maqe1v?file=index.ts
+_DEMO:_ https://codesandbox.io/s/reactive-function-demo-forked-j18cz?file=/src/index.ts
 
 # Advantages
 
